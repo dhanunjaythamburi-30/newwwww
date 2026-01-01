@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmaverse | The Next Evolution</title>
+    <!-- Premium Typeface -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <!-- GSAP (GreenSock) - Used for the world's best motion physics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --p-teal: #0d4b44;
+            --p-orange: #ff7a21;
+            --p-gold: #c5a059;
+            --p-white: #ffffff;
+            --p-bg-dark: #051614;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background-color: var(--p-bg-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--p-white);
+        }
+
+        /* --- PRESTIGE BACKGROUNDS --- */
+        #master-stage {
+            position: relative;
+            width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            perspective: 2000px; /* Essential for the 3D depth in the video */
+        }
+
+        /* The Mesh Gradient revealed after the portal */
+        #mesh-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at 10% 20%, #f0fdfa 0%, white 50%),
+                        radial-gradient(circle at 90% 80%, #fff7ed 0%, white 50%);
+            z-index: -1;
+            opacity: 0;
+        }
+
+        /* --- THE LOGO PORTAL (PHARMA CADUCEUS) --- */
+        .portal-icon {
+            position: absolute;
+            width: 100px; height: 100px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- TYPOGRAPHY ENGINE --- */
+        .scene {
+            position: absolute;
+            width: 100%; text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+            opacity: 0; visibility: hidden;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 10vw, 7.5rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            margin: 0;
+        }
+
+        .orange-txt { color: var(--p-orange); }
+
+        /* --- KINETIC FEATURE CLOUD (The 0:08 Mark Style) --- */
+        .cloud-container {
+            position: absolute;
+            width: 100%; height: 100%;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .feature-item {
+            position: absolute;
+            font-size: 2.8rem;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -0.04em;
+            filter: blur(8px);
+            opacity: 0;
+            transform-style: preserve-3d;
+        }
+
+        .teal-feature { color: var(--p-teal); }
+        .orange-feature { color: var(--p-orange); }
+
+        /* Dot Grid */
+        .dot-grid {
+            position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(13, 75, 68, 0.1) 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+            z-index: -1;
+            opacity: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="mesh-overlay"></div>
+    <div class="dot-grid" id="dots"></div>
+
+    <div id="master-stage">
+
+        <!-- Phase 1: The Build Up -->
+        <div class="scene" id="sc1">
+            <h1 id="t1">to keep <span class="orange-txt">up with</span></h1>
+        </div>
+
+        <!-- Phase 2: Feature [Caduceus] Requests (Portal Transition) -->
+        <div class="scene" id="sc2" style="flex-direction: row; gap: 40px;">
+            <h1>clinical</h1>
+            <svg class="portal-icon" id="logo-portal" viewBox="0 0 100 100">
+                <rect x="47" y="10" width="6" height="80" rx="3" fill="var(--p-white)" />
+                <path d="M50 30 C30 15, 10 35, 10 45 C10 55, 30 50, 50 42 C70 50, 90 55, 90 45 C85 35, 70 15, 50 30" fill="var(--p-gold)" />
+                <path d="M44 80 Q 35 70, 50 60 Q 65 50, 50 40 Q 35 30, 50 20" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                <path d="M56 80 Q 65 70, 50 60 Q 35 50, 50 40 Q 65 30, 50 20" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <h1>updates</h1>
+        </div>
+
+        <!-- Phase 3: Brand Reveal -->
+        <div class="scene" id="sc3">
+            <h1 style="color: var(--p-teal); font-size: 10vw;">✦ Pharmaverse</h1>
+        </div>
+
+        <!-- Phase 4: Word Cloud Expansion (High Kinetic) -->
+        <div class="cloud-container" id="cloud-view">
+            <div class="feature-item teal-feature" data-z="-800" style="top: 15%; left: 10%;">Decision Suite</div>
+            <div class="feature-item orange-feature" data-z="-500" style="top: 70%; right: 15%;">High-Yield Notes</div>
+            <div class="feature-item teal-feature" data-z="-1200" style="top: 40%; left: 15%;">Interaction Engine</div>
+            <div class="feature-item orange-feature" data-z="-300" style="top: 10%; right: 10%;">GPA Tracker</div>
+            <div class="feature-item teal-feature" data-z="-1500" style="bottom: 10%; left: 20%;">Pharma-D Exam Prep</div>
+            <div class="feature-item orange-feature" data-z="-600" style="top: 45%; right: 20%;">24/7 Support</div>
+            <h1 id="central-hub" style="color: black; font-size: 6vw;">The Ultimate Hub</h1>
+        </div>
+    </div>
+
+    <script>
+        const tl = gsap.timeline({ repeat: -1 });
+
+        // Phase 1: "To keep up with"
+        tl.to("#sc1", { autoAlpha: 1, duration: 0.1 })
+          .from("#t1", { scale: 1.8, opacity: 0, duration: 1.2, ease: "expo.out" })
+          .to("#sc1", { y: -50, opacity: 0, duration: 0.4, delay: 0.5 });
+
+        // Phase 2: Icon Portal Zoom (Replicating the 0:04 Scale Transition)
+        tl.to("#sc2", { autoAlpha: 1, duration: 0.1 })
+          .from("#sc2 h1:first-child", { x: -200, opacity: 0, duration: 0.8, ease: "expo.out" })
+          .from("#sc2 h1:last-child", { x: 200, opacity: 0, duration: 0.8, ease: "expo.out" }, "-=0.8")
+          .to("#logo-portal", { autoAlpha: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, "-=0.5")
+          
+          // The Big Billion-Dollar Zoom Transition
+          .to("#logo-portal", { 
+                scale: 60, // Growing so large it becomes the "room"
+                duration: 1.2, 
+                ease: "power4.in",
+                onStart: () => {
+                    gsap.to("#logo-portal path, #logo-portal rect", { fill: "#0d4b44", stroke: "#0d4b44", duration: 0.3 });
+                }
+          })
+          // The Switch (Dark to Light)
+          .to("#mesh-overlay", { opacity: 1, duration: 0.1 }, "-=0.2")
+          .to("#dots", { opacity: 1, duration: 1 }, "-=0.1")
+          .to("body", { backgroundColor: "white", duration: 0.1 }, "-=0.2");
+
+        // Phase 3: Brand Branding Reveal
+        tl.to("#sc3", { autoAlpha: 1, duration: 0.1 }, "-=0.5")
+          .from("#sc3 h1", { y: 150, opacity: 0, duration: 1, ease: "expo.out" })
+          .to("#sc3", { scale: 0.8, opacity: 0, duration: 0.5, delay: 0.8 });
+
+        // Phase 4: High-End Feature Cloud (The 0:08 Rhythmic Rush)
+        tl.set("#cloud-view", { visibility: "visible" })
+          .to(".feature-item", {
+                duration: 1.5,
+                opacity: 1,
+                filter: "blur(0px)",
+                z: 0,
+                stagger: {
+                    each: 0.05,
+                    from: "random"
+                },
+                ease: "expo.out"
+          }, "-=0.2")
+          .from("#central-hub", { y: 60, opacity: 0, duration: 1, ease: "elastic.out(1, 0.75)" }, "-=1.2")
+          
+          // The 3D Push
+          .to(".feature-item", {
+                z: 1000, // Flying toward the camera
+                opacity: 0,
+                duration: 1.5,
+                stagger: 0.05,
+                ease: "power2.in"
+          })
+          .to("#central-hub", { scale: 0.4, opacity: 0, duration: 0.8, ease: "power4.in" }, "-=1")
+          
+          // Loop Reset
+          .to("#master-stage", { opacity: 0, duration: 0.4, delay: 0.5 })
+          .set("body", { backgroundColor: "var(--p-bg-dark)" })
+          .set("#mesh-overlay, #dots", { opacity: 0 })
+          .to("#master-stage", { opacity: 1, duration: 0.1 });
+
+    </script>
+</body>
+</html>
